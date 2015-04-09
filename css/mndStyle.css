@@ -1,7 +1,7 @@
 .news_thumb_block{border:solid 1px #dddddd; }
 .news_thumb_block_inner{height:125px; width:inherit;  text-align: center;   display: table-cell; vertical-align: middle;}
 .news_row{clear:both; margin-bottom:20px;  }
-.news_row_list{border-bottom:1px solid #a4ccdb; padding-bottom:20px;}
+.news_row_list{/*border-bottom:1px solid #a4ccdb; padding-bottom:20px;*/}
 .mnd_single_image{margin-top:20px;}
 .pagination_mnd{clear:both;}
 .pagination_mnd ul{margin-left:0 !important;}

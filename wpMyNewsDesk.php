@@ -4,7 +4,7 @@ Plugin Name: wpMyNewsDesk
 Plugin URI: http://www.dinwebb.nu/
 Description: Connection to MyNewsDesk through API
 Author: Mansoor Munib
-Version: 1.2
+Version: 1.3
 Author URI: http://www.dinwebb.nu/
 */
 
