@@ -2,9 +2,9 @@
 /*
 Plugin Name: wpMyNewsDesk
 Plugin URI: http://www.dinwebb.nu/
-Description: Wordpress connection to MyNewsDesk press release through API. Easied way to intergrate myNewsDesk in your website
+Description: Connection to MyNewsDesk through API
 Author: Mansoor Munib
-Version: 1.0.0
+Version: 1.2
 Author URI: http://www.dinwebb.nu/
 */
 
@@ -24,6 +24,8 @@ function mnd_script()
 		
 		wp_enqueue_script( 'mnd-script' );
 		wp_enqueue_style( 'mnd-style' );
+		
+		wp_localize_script( 'mnd-script', 'mndAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 	}
 
 }
@@ -32,15 +34,5 @@ add_action( 'wp_enqueue_scripts', 'mnd_script' );
 // Shortcode
 include('shortcode.php');
 
-function getUrl($parseIt=null) {
-  $url  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
-  $url .= ( $_SERVER["SERVER_PORT"] !== 80 ) ? ":".$_SERVER["SERVER_PORT"] : "";
-  $url .= $_SERVER["REQUEST_URI"];
-  if($parseIt == true):
-    $url = parse_url($url); //return array otherwise string
-  endif;
-  return $url;
-}
-
 // Settings
-require_once('settings.php');
+include('settings.php');

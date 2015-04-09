@@ -1,18 +1,27 @@
 <?php
 function get_mynewsdesk() {
-	
-  $api_key = get_option('kkpo_quote');
+
+  $output = '';
+  if(isset($_REQUEST['view_id']) && !empty($_REQUEST['view_id']) ){
+  	$view_id = $_REQUEST['view_id'];
+  }
+  $output .= '<div id="view_id_" style="display:none;">'.$view_id.'</div>';
+  
+  $output .= '<div id="ajax_response" class="loading"></div>';
+return $output;
+}
+add_shortcode('mynewsdesk', 'get_mynewsdesk');
+add_action('wp_ajax_mnd_news', 'get_mnd_ajax');
+add_action( 'wp_ajax_nopriv_mnd_news', 'get_mnd_ajax' ); 
+
+
+
+function get_mnd_ajax() {
+ $api_key = get_option('kkpo_quote');
   if(!isset($api_key) || empty($api_key)){
   	$output .= "Please enter unique key admin &raquo; setting &raquo; myNewsDesk If you don't have unique key then contact myNewsDesk.com to get one. For more information please read <a href='www.mynewsdesk.com/docs/webservice_pressroom' target='_blank'>www.mynewsdesk.com/docs/webservice_pressroom</a>";
 	return $output;
-  }
- 
-  $curUrl = getUrl(true);
-
-  if(isset($curUrl['query']) && !empty($curUrl['query']) )
-  	$queryString = '?'.$curUrl['query'].'&';
-  else
-	$queryString = '?';
+  }  
   
   if(isset($_REQUEST['view_id']) && !empty($_REQUEST['view_id']) ){
 	$view_id = $_REQUEST['view_id'];
@@ -40,12 +49,12 @@ function get_mynewsdesk() {
 				else
 					$imgDiv = '';
 				
-				$output .= '<div class="row news_row">';
-				$output .= '<div class="span7">
-								<div><b>'.$header_value.'</b></div>
-								<div class="news_date">'.$published_date[0].':'.$published_date[1].'</div>
-								'.$imgDiv.'									
+				$output .= '<div class="row news_row mnd_rows">';
+				$output .= '<div class="span12">
+								<div><h1>'.$header_value.'</h1></div>
+								<div class="news_date">'.$published_date[0].':'.$published_date[1].'</div>								
 								<div>'.$body_value.'</div>
+								'.$imgDiv.'
 							</div>';				
 				$output .= '</div>';				
 		
@@ -78,20 +87,22 @@ function get_mynewsdesk() {
 				
 				$published_date = explode(":", $published_at_value);
 				
-				$output .= '<div class="row news_row">';
-				$span_class = 'span7';
+				$output .= '<div class="row news_row news_row_list mnd_rows">';
+				$span_class = 'span12';
 				if(isset($image_thumbnail_small_value)):
-					$span_class = 'span5';
-					$output .= '<div class="span2 news_thumb_block">
-								<div class="news_thumb_block_inner">
+					$span_class = 'span9';
+					$output .= '<div class="span3 news_thumb_block">
+								<div class="news_thumb_block_inner inner">
 									<img src="'.$image_thumbnail_small_value.'" alt="">
 								</div>
 								</div>';
 				endif;
 					$output .= '<div class="'.$span_class.'">
-									<div><a href="'.$queryString.'view_id='.$id_value.'">'.$header_value.'</a></div>
+									<div class="inner">
+									<div class="mnd-a"><a href="?view_id='.$id_value.'">'.$header_value.'</a></div>
 									<div class="news_date">'.$published_date[0].':'.$published_date[1].'</div>
 									<div>'.$summary_value.'</div>
+									</div>
 								</div>';							
 				
 				$output .= '</div>';
@@ -103,7 +114,7 @@ function get_mynewsdesk() {
 			
 		}
 		$i=0;
-		$output .= 	'<div class="pagination"><ul>';
+		$output .= 	'<div class="pagination_mnd"><ul>';
 		$output .= 	'<li><a href="#" class="page_href" id="k_0">&laquo;</a></li>';
 			foreach($item as $ind_Release){
 				if($i%10 == 0){
@@ -116,6 +127,6 @@ function get_mynewsdesk() {
 		$output .= 	'<li><a href="#" class="page_href" id="k_'.$last_block.'">&raquo;</a></li>';
 		$output .= 	'</ul></div>';
   }//end of else
-return $output;
+  echo $output;
+die();
 }
-add_shortcode('mynewsdesk', 'get_mynewsdesk');
