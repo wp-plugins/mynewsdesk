@@ -1,5 +1,5 @@
 jQuery(document).ready(function($){	
-	var dataString = 'action=mnd_news&view_id='+ $('#view_id_').text();
+	var dataString = 'action=mnd_news&view_id='+ $('#view_id_').text()+'&media_type='+ $('#media_type_').text();
 	$.ajax({
 			type: "POST",
 			url: mndAjax.ajaxurl,

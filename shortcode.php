@@ -5,10 +5,17 @@ function get_mynewsdesk() {
   if(isset($_REQUEST['view_id']) && !empty($_REQUEST['view_id']) ){
   	$view_id = $_REQUEST['view_id'];
   }
-  $output .= '<div id="view_id_" style="display:none;">'.$view_id.'</div>';
+  if(isset($_REQUEST['media_type']) && !empty($_REQUEST['media_type']) ){		
+	$media_type = $_REQUEST['media_type'];
+  }else{
+	$media_type = 'news';
+  }  
   
+  $output .= '<div id="view_id_" style="display:none;">'.$view_id.'</div>';
+  $output .= '<div id="media_type_" style="display:none;">'.$media_type.'</div>';
   $output .= '<div id="ajax_response" class="loading"></div>';
-return $output;
+  
+  return $output;
 }
 add_shortcode('mynewsdesk', 'get_mynewsdesk');
 add_action('wp_ajax_mnd_news', 'get_mnd_ajax');
@@ -19,15 +26,42 @@ add_action( 'wp_ajax_nopriv_mnd_news', 'get_mnd_ajax' );
 function get_mnd_ajax() {
  $api_key = get_option('kkpo_quote');
   if(!isset($api_key) || empty($api_key)){
-  	$output .= "Please enter unique key admin &raquo; setting &raquo; myNewsDesk If you don't have unique key then contact myNewsDesk.com to get one. For more information please read <a href='www.mynewsdesk.com/docs/webservice_pressroom' target='_blank'>www.mynewsdesk.com/docs/webservice_pressroom</a>";
+  	$output .= "Please enter unique key admin &raquo; setting &raquo; myNewsDesk If you don't have unique key then contact myNewsDesk.com to get one. For more information please read <a href='http://www.mynewsdesk.com/docs/webservice_pressroom' target='_blank'>www.mynewsdesk.com/docs/webservice_pressroom</a>";
 	return $output;
   }  
   
+	/*START - Type of Media*/
+	$media_type_translation = array('pressrelease'=>'Pressmeddelanden','news'=>'Nyheter','blog_post'=>'Blog post','event'=>'Event' ,'image'=>'Image','video'=>'Video','document'=>'Document','contact_person'=>'Contact person');
+
+	if(isset($_REQUEST['media_type']) && !empty($_REQUEST['media_type']) ){		
+		$media_type = $_REQUEST['media_type'];
+		$type_of_media='&type_of_media='.$media_type;
+	}else{
+		$media_type = 'news';
+		$type_of_media = '';
+	}
+		
+	$kkpo_media_option = get_option('kkpo_media');
+	if(isset($kkpo_media_option) && !empty($kkpo_media_option) && empty($_REQUEST['view_id']) ){
+		$output .= '<form method="get">';
+			foreach($kkpo_media_option as $key => $value):
+				$checked = '';
+				if( $media_type ==  $value )
+					$checked = 'checked';
+				
+				$output .= '<div class="label_wrap"><label for="'.$value.'"><input type="radio" '.$checked.' name="media_type" id="'.$value.'" onclick="this.form.submit();" value="'.$value.'">&nbsp;'.$media_type_translation[$value].'</label></div>';
+			endforeach;
+		$output .= '</form>';
+	}
+	/*END - Type of Media*/	
+	
+  
   if(isset($_REQUEST['view_id']) && !empty($_REQUEST['view_id']) ){
+
 	$view_id = $_REQUEST['view_id'];
 	$service = 'view';	
 	$parameters='item_id='.$view_id;	
-	$url = 'http://www.mynewsdesk.com/services/pressroom/'.$service.'/'.$api_key.'/?'.$parameters;
+	$url = 'http://www.mynewsdesk.com/services/pressroom/'.$service.'/'.$api_key.'/?'.$parameters.$type_of_media;
 	$dom_object = new DOMDocument(); 
 	$dom_object->load($url);
 	$item = $dom_object->getElementsByTagName("item");
@@ -62,7 +96,7 @@ function get_mnd_ajax() {
   }else{
 	  $service = 'list';
 	  $parameters='pressroom=se&limit=100';
-	  $url = 'http://www.mynewsdesk.com/services/pressroom/'.$service.'/'.$api_key.'/?'.$parameters;
+	  $url = 'http://www.mynewsdesk.com/services/pressroom/'.$service.'/'.$api_key.'/?'.$parameters.$type_of_media;
 	  $dom_object = new DOMDocument(); 
 	  $dom_object->load($url);
 	  $i=0;
@@ -99,7 +133,7 @@ function get_mnd_ajax() {
 				endif;
 					$output .= '<div class="'.$span_class.'">
 									<div class="inner">
-									<div class="mnd-a"><a href="?view_id='.$id_value.'">'.$header_value.'</a></div>
+									<div class="mnd-a"><a href="?media_type='.$media_type.'&view_id='.$id_value.'">'.$header_value.'</a></div>
 									<div class="news_date">'.$published_date[0].':'.$published_date[1].'</div>
 									<div>'.$summary_value.'</div>
 									</div>

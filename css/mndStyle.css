@@ -1,7 +1,7 @@
 .news_thumb_block{border:solid 1px #dddddd; }
 .news_thumb_block_inner{height:125px; width:inherit;  text-align: center;   display: table-cell; vertical-align: middle;}
 .news_row{clear:both; margin-bottom:20px;  }
-.news_row_list{/*border-bottom:1px solid #a4ccdb; padding-bottom:20px;*/}
+.news_row_list{border-bottom:1px solid #a4ccdb; padding-bottom:20px;}
 .mnd_single_image{margin-top:20px;}
 .pagination_mnd{clear:both;}
 .pagination_mnd ul{margin-left:0 !important;}
@@ -12,6 +12,9 @@
 .active_page, .active_page:hover{color:#dddddd;}
 .loading{height:200px; width:400px; margin:0 auto 100px; background:url('ajax-loader.gif') no-repeat center center;}
 
+.label_wrap{float:left; margin-right:10px;}
+.label_wrap label{font-weight:normal; line-height:36px;}
+.label_wrap label span{padding-left:10px;}
 
 .mnd_rows .span1, .mnd_rows .span2, .mnd_rows .span3, .mnd_rows .span4, .mnd_rows .span5, .mnd_rows .span6, .mnd_rows .span7, .mnd_rows .span8, .mnd_rows .span9, .mnd_rows .span10, .mnd_rows .span11, .mnd_rows .span12{float:left;}
 
