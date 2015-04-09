@@ -3,7 +3,7 @@ Contributors: mansoormunib
 Tags: press releases, myNewsDesk, wordpress mynewsdesk, My News Desk, wpMyNewsDesk
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 myNewsDesk (Its wordpress pluign to get connected to mynewsdesk.com site and embedd press releases in your site)
 
