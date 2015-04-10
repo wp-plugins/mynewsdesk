@@ -21,8 +21,6 @@
                 if(!empty($kkpo_media_option) && is_array($kkpo_media_option))
                     $kkpo_media_type = $kkpo_media_option;
                 ?>                
-				
-                <?php $kkpo_media_option = get_option('kkpo_media'); ?>
                 <?php foreach($type_of_media as $key => $value): ?>
                 	<?php
 						$checked = '';
