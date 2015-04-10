@@ -1,6 +1,6 @@
 <div class="wrap" style="margin:12px 0 0 0;">
     <?php screen_icon(); ?>
-    <?php $type_of_media = array('news','pressrelease','blog_post','event','image','video','document','contact_person'); ?>
+    <?php $type_of_media = array('pressrelease','news','blog_post','event','image','video','document','contact_person'); ?>
 	<form action="options.php" method="post" id="<?php echo $plugin_id; ?>_options_form" name="<?php echo $plugin_id; ?>_options_form">
 	<?php settings_fields($plugin_id.'_options'); ?>
     <h2>myNewsDesk Plugin Options &raquo; Settings</h2>
@@ -14,7 +14,7 @@
 		   </tr>
            <tr>
 			 <td>
-                <b>Default media type </b><br />
+                <b>Default media type (if nothing selected default will pressrelease)</b><br />
                 <?php
 					$kkpo_media_default = get_option('kkpo_media_default');
 					foreach($type_of_media as $key => $value):
