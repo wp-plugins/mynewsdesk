@@ -15,6 +15,7 @@
 			 <td>
              	<?php $type_of_media = array('news','pressrelease','blog_post','event','image','video','document','contact_person'); ?>
                 <b>Type of media to be displayed</b><br />
+                <?php $kkpo_media_option = array(); ?>
                 <?php $kkpo_media_option = get_option('kkpo_media'); ?>
                 <?php foreach($type_of_media as $key => $value): ?>
                 	<?php
