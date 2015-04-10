@@ -15,12 +15,18 @@
 			 <td>
              	<?php $type_of_media = array('news','pressrelease','blog_post','event','image','video','document','contact_person'); ?>
                 <b>Type of media to be displayed</b><br />
-                <?php $kkpo_media_option = array(); ?>
+				<?php
+                $kkpo_media_type = array();
+                $kkpo_media_option = get_option('kkpo_media');
+                if(!empty($kkpo_media_option) && is_array($kkpo_media_option))
+                    $kkpo_media_type = $kkpo_media_option;
+                ?>                
+				
                 <?php $kkpo_media_option = get_option('kkpo_media'); ?>
                 <?php foreach($type_of_media as $key => $value): ?>
                 	<?php
 						$checked = '';
-						if( in_array( $value, $kkpo_media_option ) )
+						if( in_array( $value, $kkpo_media_type ) )
 							$checked = 'checked';					
 					?>
 	                <input type="checkbox" id="kkpo_media_<?php echo $key; ?>" <?php echo $checked;?> name="kkpo_media[]" value="<?php echo $value;?>"><?php echo $value;?><br/>
