@@ -10,6 +10,7 @@ define('KKPLUGINOPTIONS_NICK', 'myNewsDesk');
 		public static function register(){
 			register_setting(KKPLUGINOPTIONS_ID.'_options', 'kkpo_quote');
 			register_setting(KKPLUGINOPTIONS_ID.'_options', 'kkpo_media');
+			register_setting(KKPLUGINOPTIONS_ID.'_options', 'kkpo_media_default');
 		}
 		public static function menu(){
 			add_options_page(KKPLUGINOPTIONS_NICK.' Plugin Options', KKPLUGINOPTIONS_NICK, 'manage_options', KKPLUGINOPTIONS_ID.'_options', array('mndPluginOptions', 'options_page'));

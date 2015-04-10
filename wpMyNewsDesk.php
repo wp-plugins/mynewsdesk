@@ -2,9 +2,9 @@
 /*
 Plugin Name: wpMyNewsDesk
 Plugin URI: http://www.dinwebb.nu/
-Description: Connection to MyNewsDesk through API
+Description: Connection to MyNewsDesk through API using short code [mynewsdesk]
 Author: Mansoor Munib
-Version: 1.3
+Version: 1.4
 Author URI: http://www.dinwebb.nu/
 */
 
@@ -30,6 +30,15 @@ function mnd_script()
 
 }
 add_action( 'wp_enqueue_scripts', 'mnd_script' ); 
+
+// Add settings link on plugin page
+function mnd_settings_link($links) { 
+  $settings_link = '<a href="options-general.php?page=mnd-plugin-options_options">Settings</a>'; 
+  array_unshift($links, $settings_link); 
+  return $links; 
+}
+$plugin = plugin_basename(__FILE__); 
+add_filter("plugin_action_links_$plugin", 'mnd_settings_link' );
 
 // Shortcode
 include('shortcode.php');
