@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: wpMyNewsDesk
+Plugin Name: wpMynewsdesk
 Plugin URI: http://www.dinwebb.nu/
-Description: Connection to MyNewsDesk through API using short code [mynewsdesk]
+Description: Connection to Mynewsdesk through API using short code [mynewsdesk]
 Author: Mansoor Munib
 Version: 1.4
-Author URI: http://www.dinwebb.nu/
+Author URI: http://www.dwinteractive.se/
 */
 
 // Url to plugin
