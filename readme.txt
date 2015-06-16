@@ -1,5 +1,5 @@
 === Mynewsdesk ===
-Contributors: mansoormunib
+Contributors: mansoormunib, mnddev
 Tags: press releases, myNewsDesk, wordpress mynewsdesk, My News Desk, wpMyNewsDesk
 Requires at least: 3.0.1
 Tested up to: 4.1
